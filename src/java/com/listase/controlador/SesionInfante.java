@@ -9,7 +9,6 @@ import com.listase.modelo.Infante;
 import com.listase.modelo.ListaSE;
 import com.listase.modelo.Nodo;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -29,7 +28,7 @@ import org.primefaces.model.diagram.overlay.LabelOverlay;
  * @author carloaiza
  */
 @Named(value = "sesionInfante")
-@SessionScoped
+
 public class SesionInfante implements Serializable {
     private ListaSE listaInfantes;
     private Infante infante;
