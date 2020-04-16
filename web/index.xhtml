@@ -51,6 +51,7 @@
                             <p:outputLabel for="spEdad" value="Edad"/>
                             <p:spinner id="spEdad" required="true" min="1" max="7" disabled="#{sesionInfante.deshabilitarFormulario}"
                                        value="#{sesionInfante.infante.edad}"/>
+                            <p:selectOneMenu
                             <p:outputLabel value="Al inicio"/>
                             <p:selectOneMenu value="#{sesionInfante.alInicio}" disabled="#{sesionInfante.deshabilitarFormulario}">
                                 <f:selectItem itemLabel="SI" itemValue="1"/>
@@ -63,52 +64,62 @@
                         <p:commandButton value="Nuevo" update="frmInfante" action="#{sesionInfante.habilitarFormulario()}"
                                          disabled="#{!sesionInfante.deshabilitarFormulario}"
                                          />
-                        <p:panelGrid columns="3">
-                            <p:commandButton value="Primero" action="#{sesionInfante.irPrimero()}" 
-                                             update="frmInfante"/>
-                            <p:commandButton value="Siguiente" action="#{sesionInfante.irSiguiente()}"
-                                             update="frmInfante"/>       
-                            <p:commandButton value="Último" action="#{sesionInfante.irUltimo()}" 
-                                             update="frmInfante"/> 
-                            <p:commandButton value="invertir lista" action="#{sesionInfante.invertirLista()}"
-                                             update="frmInfante"/>
-                    </p:panelGrid>
-                </p:panel>
+                        <p:commandButton value="invertir" update="frmInfante,:growlErrores"
+                                         action="#{sesionInfante}"
+                                         <p:panelGrid columns="3">
+                                <p:commandButton value="Primero" action="#{sesionInfante.irPrimero()}" 
+                                                 update="frmInfante"/>
+                                <p:commandButton value="Siguiente" action="#{sesionInfante.irSiguiente()}"
+                                                 update="frmInfante"/>       
+                                <p:commandButton value="Último" action="#{sesionInfante.irUltimo()}" 
+                                                 update="frmInfante"/> 
+                                <p:commandButton value="invertir lista" action="#{sesionInfante.invertirLista()}"
+                                                 update="frmInfante"/>
+                            </p:panelGrid>
+                    </p:panel>
 
-                <p:panel header="Gráfico" id="pnlVista" style="width: 100%;">
-                    <p:commandButton value="#{sesionInfante.textoVista}" 
-                                     action="#{sesionInfante.cambiarVistaInfantes()}"
-                                     update="pnlVista"/>
+                    <p:panel header="Gráfico" id="pnlVista" style="width: 100%;">
+                        <p:commandButton value="#{sesionInfante.textoVista}" 
+                                         action="#{sesionInfante.cambiarVistaInfantes()}"
+                                         update="pnlVista"/>
 
-                    <p:dataTable rendered="#{sesionInfante.textoVista=='Gráfico'}"  value="#{sesionInfante.listadoInfantes}" var="inf">
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Código"/>
-                            </f:facet>
-                            <p:outputLabel value="#{inf.codigo}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Nombre"/>
-                            </f:facet>
-                            <p:outputLabel value="#{inf.nombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <p:outputLabel value="Edad"/>
-                            </f:facet>
-                            <p:outputLabel value="#{inf.edad}"/>
-                        </p:column>
-                    </p:dataTable>
+                        <p:dataTable rendered="#{sesionInfante.textoVista=='Gráfico'}"  value="#{sesionInfante.listadoInfantes}" var="inf">
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Código"/>
+                                </f:facet>
+                                <p:outputLabel value="#{inf.codigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Nombre"/>
+                                </f:facet>
+                                <p:outputLabel value="#{inf.nombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="Edad"/>
+                                </f:facet>
+                                <p:outputLabel value="#{inf.edad}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <p:outputLabel value="genero"/>
+                                </f:facet>
+                                <p:outputLabel value="#{inf.edad}"/>
+                            </p:column>
+                        </p:dataTable>
 
-                    <p:diagram rendered="#{sesionInfante.textoVista=='Tabla'}" value="#{sesionInfante.model}" style="height:600px; width: 800px;" styleClass="ui-widget-content" />
+                        <p:diagram rendered="#{sesionInfante.textoVista=='Tabla'}" value="#{sesionInfante.model}" style="height:600px; width: 800px;" styleClass="ui-widget-content" />
 
-                </p:panel>
+                    </p:panel>
 
-            </p:panelGrid>
-            <p:outputLabel value="#{sesionInfante.listaInfantes.obtenerListadoInfantes()}"/>
-        </p:panel>
-    </h:form>
-</h:body>
+                </p:panelGrid>
+                <p:outputLabel value="promedio de edades de los infantes: #{sesionInfante.listaInfantes.promediasEdades()}"/>
+
+                <p:outputLabel value="#{sesionInfante.listaInfantes.obtenerListadoInfantes()}"/>
+            </p:panel>
+        </h:form>
+    </h:body>
 </html>
 
